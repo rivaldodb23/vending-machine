@@ -11,6 +11,9 @@ from tkinter import filedialog as fd
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'shhhhhhh'
 
+# Helper var to indicate progress
+progress = 20
+
 # The default route when app starts, redirects to startup
 @app.route("/", methods=['GET', 'POST'])
 def home():
