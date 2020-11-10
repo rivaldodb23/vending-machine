@@ -25,6 +25,7 @@
 
     <div class="item-display jumbotron">
         <h2 style="color: #0072AA;">MACHINE CONTENT</h2>
+        <p style="color: green;">{{ paymentOut }}</p>
         <table>
             <thead class="thead-dark">
                 <tr>
@@ -49,7 +50,7 @@
     </div>
     <form action="" class="form-group container" method="post">
         <h2 style="color: #0072AA;">Enter the name of the item you want to buy</h2>
-        <h2>{{ paymentOut }}</h2>
+        
         <p> {{form.denom_1}} {{form.denom_1.label(class_="form-check-label")}}
         </p>
         <p> {{form.denom_2}} {{form.denom_2.label(class_="form-check-label")}}
