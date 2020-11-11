@@ -107,6 +107,17 @@ class TestMachine(unittest.TestCase):
         ans = machine.file_num_lines(file)
         file.close()
         self.assertTrue(num_lines == ans)
+
+    def test_makePayment(self):
+        machine.load_items(filename_machine1)
+        machine.wallet = [5,5,5,5]
+        print(machine.makePayment(18,'Lays',1,1,1,1))
+        self.assertTrue(machine.makePayment(1000,'Simba',10,10,10,10) == "Invalid coins specified, Complete refund")
+        self.assertTrue(machine.makePayment(1000,'Simba',4,4,4,4) == "Item out of stock, Complete refund")
+        self.assertTrue(machine.makePayment(1000,'Not an item',4,4,4,4) == "Invalid item selected, Complete refund")
+        self.assertTrue(machine.makePayment(1,'Lays',1,0,0,0) == "Invalid cash amount, Complete refund")
+        self.assertTrue(machine.makePayment(18,'Lays',1,1,1,1) == "You have successfully purchased item = Lays Your change is = R11: 1 x R1, 0 x R2, 0 x R5, 1 x R10 ")
+        
     
     def test_z_close_app(self):
         print("Closing machine progress bar")

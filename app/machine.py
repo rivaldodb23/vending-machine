@@ -182,3 +182,60 @@ def get_num_denom_1_change(change):
 """
 def close_app():
     return progress_bar.stop()
+
+"""
+-   Gets the total cash and coins the user wants to buy with as input
+-   If user does not have the coins the user specified to buy with, the user is notified
+-   If item user specified does not exist, user is notified
+-   If item user selected is out of stock, user is notified
+-   If the amount of cash user specfied is too little, user is notified
+-   For all the above the user gets a complete refund
+
+-   If the payment is successful, user gets a detailed output of
+    the transaction and change
+"""
+def makePayment(user_cash, item, c1, c2, c3, c4):
+    progress_bar.show()
+    progress_bar.update_bar(0)
+    if (has_coins(c1, c2, c3, c4) == False):
+        progress_bar.update_bar(100)
+        progress_bar.hide()
+        return "Invalid coins specified, Complete refund"
+
+    if (has_item(item) == False):
+        if (num_items(item) == 0):
+            progress_bar.update_bar(100)
+            progress_bar.hide()
+            return "Item out of stock, Complete refund"
+            progress_bar.update_bar(100)
+            progress_bar.hide()
+        return "Invalid item selected, Complete refund"
+
+    if (is_enough_money(user_cash, item) == False):
+        progress_bar.update_bar(100)
+        progress_bar.hide()
+        return "Invalid cash amount, Complete refund"
+    deduct_item(item)
+    progress_bar.update_bar(10)
+    change = get_user_change(user_cash, get_item_cost(item))
+    progress_bar.update_bar(20)
+    R1 = get_num_denom_1_change(change)
+    progress_bar.update_bar(30)
+    R2 = get_num_denom_2_change(change)
+    progress_bar.update_bar(40)
+    R5 = get_num_denom_3_change(change)
+    progress_bar.update_bar(50)
+    R10 = get_num_denom_4_change(change)
+    progress_bar.update_bar(60)
+    str_out = "You have successfully purchased item = " + item + " "
+    progress_bar.update_bar(70)
+    str_out = str_out + "Your change is = R" + str(change) + ": "
+    progress_bar.update_bar(80)
+    str_out = str_out + str(R1) + " x R1, " + str(R2) + \
+        " x R2, " + str(R5) + " x R5, " + str(R10) + " x R10 "
+    remove_coins(c1, c2, c3, c4)
+    progress_bar.update_bar(90)
+    add_coins(R1, R2, R5, R10)
+    progress_bar.update_bar(100)
+    progress_bar.hide()
+    return str_out
