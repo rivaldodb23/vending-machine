@@ -15,9 +15,11 @@
 
 <body>
   <header>
+    <!-- Navbar  -->
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #0072AA">
       <a class="navbar-brand" href="#" style="color: white;">[Rivaldo's Vendings]</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
@@ -32,6 +34,7 @@
       </div>
     </nav>
 
+    <!-- Heading -->
     <div class="container">
       <h1 class="display-4"><span style="color: #0072AA;">Spending</span> Machines</h1>
       <p class="lead">Vendings for your spendings</p>
@@ -40,13 +43,15 @@
   </header>
 
   <main>
-    <!-- Where initial wallet and/or items data is updated using jinja -->
 
+    <!-- Wallet Display  -->
     <div class="container">
       <div class="wallet container">
         <h2 style="color: #0072AA;">My Wallet</h2>
         <p>R1 = {{wallet[0]}} <br> R2 = {{wallet[1]}} <br> R5 = {{wallet[2]}} <br> R10 = {{wallet[3]}} </p>
       </div>
+
+      <!-- Machine Content a.k.a. items display using jinja  -->
       <div class="item-display jumbotron">
         <h2 style="color: #0072AA;">MACHINE CONTENT</h2>
         <p style="color: green;">{{ paymentOut }}</p>
@@ -68,12 +73,14 @@
 
             {% endfor %}
           </tbody>
-
         </table>
-
       </div>
+
+      <!-- Block content using jinja to inherit startup, buy and update forms -->
       {% block content %}{% endblock %}
     </div>
+
+    <!-- Bottom information regarding author  -->
     <footer>
       <div class="container-fluid" style="background-color: #0072AA; text-align: center">
         <br><br><br><br>

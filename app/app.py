@@ -11,7 +11,7 @@ from tkinter import *
 from tkinter import filedialog as fd
 app = Flask(__name__)
 
-#Secret key
+# Secret key
 app.config['SECRET_KEY'] = '9q83h4q43q48hqh34829h4928'
 
 # Helper var to indicate progress
