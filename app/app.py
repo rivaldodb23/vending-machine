@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from forms import StartUpForm, UpdateWallet, UpdateItems, BuyForm
+import os
 
 # M1 is the vending machine
 import machine as m1
@@ -9,7 +10,9 @@ import tkinter
 from tkinter import *
 from tkinter import filedialog as fd
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'shhhhhhh'
+
+#Secret key
+app.config['SECRET_KEY'] = '9q83h4q43q48hqh34829h4928'
 
 # Helper var to indicate progress
 progress = 20
@@ -72,7 +75,6 @@ def update_items():
         m1.load_items(path)
         return redirect(url_for('buy'))
     return render_template('updateItems.html', form=form, wallet=m1.wallet, items=m1.items)
-    
 
 
 """
@@ -103,6 +105,8 @@ def buy():
 -   Uses Tkinter to get the directory of a file
 -   Not used because of later web complications
 """
+
+
 def getPath():
     '''
         Choose a directory in which the generated files will be saved
@@ -119,5 +123,6 @@ def getPath():
     root.quit
     return filename
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
