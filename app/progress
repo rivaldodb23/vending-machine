@@ -23,9 +23,6 @@ class App(threading.Thread):
         threading.Thread.__init__(self)
         self.start()
 
-    """
-    -   Function used by run to quit root
-    """
     def callback(self):
         self.root.quit()
 
