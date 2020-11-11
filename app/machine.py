@@ -13,9 +13,13 @@ Currently the assumption is made that there are an inexhaustable amount of each 
 """
 
 import csv
+import time
+import progress
 
 #   Variable to help track progress
-progress = 0
+complete = 0
+progress_bar = progress.App()
+progress_bar.hide()
 
 base_denom = 1
 denom_1 = base_denom
@@ -24,7 +28,7 @@ denom_3 = 5
 denom_4 = 10
 
 items = {};
-wallet = [5,5,3,3];
+wallet = [0,0,0,0];
 
 """
 - Checks to see if the user has the right amount of coins in their wallet
@@ -67,18 +71,33 @@ def file_num_lines(file):
 - Saves Name of item, what the item costs, number of that items
 """
 def load_items(filename):
+    progress_bar.update_bar(0)
+    progress_bar.show()
+    file = open(filename, "r")
+    lines = file_num_lines(file)
+    file.close()
     with open(filename) as file:
+        lines = 10
+        
+        print("num lines = ", str(lines))
         reader = csv.reader(file)
-        print("reader lines = ", )
+        print("File read successfully")
         i = -1;
         for row in reader:
+            complete = ((i+2)*100)/lines
+            print("progress = ", str(complete))
+            progress_bar.update_bar(complete)
             if (i != -1):
                 cost = round(int(row[1]))
                 num_items = int(row[2])
                 row[1] = cost
                 row[2] = num_items
                 items[i] = row
+            time.sleep(0.1)
             i = i + 1
+    complete = 0
+    print('progress = ', str(complete))
+    progress_bar.hide()
     return items
 
 
@@ -158,3 +177,8 @@ def get_num_denom_2_change(change):
 """
 def get_num_denom_1_change(change):
     return (((change % denom_4) % denom_3) % denom_2) // denom_1
+"""
+- Closes app thread
+"""
+def close_app():
+    return progress_bar.stop()

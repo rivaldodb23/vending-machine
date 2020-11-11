@@ -38,7 +38,7 @@ def startup():
             result['denom_3']), int(result['denom_4'])]
         m1.wallet = wallet_data
         return redirect(url_for('buy'))
-    return render_template('startup.html', form=form)
+    return render_template('startup.html', form=form,  wallet=m1.wallet, items=m1.items)
 
 
 """
@@ -57,7 +57,7 @@ def update_wallet():
         m1.wallet = wallet_data
         print("New wallet ", m1.wallet)
         return redirect(url_for('buy'))
-    return render_template('updateWallet.html', form_wallet=form_wallet)
+    return render_template('updateWallet.html', form_wallet=form_wallet, wallet=m1.wallet, items=m1.items)
 
 
 """
@@ -71,7 +71,8 @@ def update_items():
         path = result['items_filename']
         m1.load_items(path)
         return redirect(url_for('buy'))
-    return render_template('updatItems.html', form=form)
+    return render_template('updateItems.html', form=form, wallet=m1.wallet, items=m1.items)
+    
 
 
 """
@@ -131,33 +132,52 @@ def getPath():
 -   If the payment is successful, user gets a detailed output of
     the transaction and change
 """
-
-
 def makePayment(user_cash, item, c1, c2, c3, c4):
+    m1.progress_bar.show()
+    m1.progress_bar.update_bar(0)
     if (m1.has_coins(c1, c2, c3, c4) == False):
+        m1.progress_bar.update_bar(100)
+        m1.progress_bar.hide()
         return "Invalid coins specified, Complete refund"
 
     if (m1.has_item(item) == False):
         if (m1.num_items(item) == 0):
+            m1.progress_bar.update_bar(100)
+            m1.progress_bar.hide()
             return "Item out of stock, Complete refund"
+            m1.progress_bar.update_bar(100)
+            m1.progress_bar.hide()
         return "Invalid item selected, Complete refund"
 
     if (m1.is_enough_money(user_cash, item) == False):
+        m1.progress_bar.update_bar(100)
+        m1.progress_bar.hide()
         return "Invalid cash amount, Complete refund"
     m1.deduct_item(item)
+    m1.progress_bar.update_bar(10)
     change = m1.get_user_change(user_cash, m1.get_item_cost(item))
+    m1.progress_bar.update_bar(20)
     R1 = m1.get_num_denom_1_change(change)
+    m1.progress_bar.update_bar(30)
     R2 = m1.get_num_denom_2_change(change)
+    m1.progress_bar.update_bar(40)
     R5 = m1.get_num_denom_3_change(change)
+    m1.progress_bar.update_bar(50)
     R10 = m1.get_num_denom_4_change(change)
+    m1.progress_bar.update_bar(60)
     str_out = "You have successfully purchased item = " + item + " "
+    m1.progress_bar.update_bar(70)
     str_out = str_out + "Your change is = " + str(change)
+    m1.progress_bar.update_bar(80)
     str_out = str_out + " " + str(R1) + " x R1, " + str(R2) + \
         " x R2, " + str(R5) + " x R5, " + str(R10) + " x R10 "
     m1.remove_coins(c1, c2, c3, c4)
+    m1.progress_bar.update_bar(90)
     m1.add_coins(R1, R2, R5, R10)
+    m1.progress_bar.update_bar(100)
+    m1.progress_bar.hide()
     return str_out
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

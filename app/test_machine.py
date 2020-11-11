@@ -104,7 +104,13 @@ class TestMachine(unittest.TestCase):
     def test_fiile_num_lines(self):
         file = open(filename_machine1, "r")
         num_lines = 10
-        self.assertTrue(num_lines == machine.file_num_lines(file))
+        ans = machine.file_num_lines(file)
+        file.close()
+        self.assertTrue(num_lines == ans)
+    
+    def test_z_close_app(self):
+        print("Closing machine progress bar")
+        self.assertTrue(machine.close_app())        
 
 
 if __name__ == "__main__":

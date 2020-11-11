@@ -26,6 +26,35 @@
     <!-- Where initial wallet and/or items data is updated using jinja -->
 
     <div class="container">
+      <div class="wallet container">
+        <h2 style="color: #0072AA;">My Wallet</h2>
+        <p>R1 = {{wallet[0]}} <br> R2 = {{wallet[1]}} <br> R5 = {{wallet[2]}} <br> R10 = {{wallet[3]}} </p>
+      </div>
+      <div class="item-display jumbotron">
+        <h2 style="color: #0072AA;">MACHINE CONTENT</h2>
+        <p style="color: green;">{{ paymentOut }}</p>
+        <table>
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Item name</th>
+              <th scope="col">Cost in R</th>
+              <th scope="col">Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in items %}
+            <tr>
+              <td>{{items[item][0]}}</td>
+              <td>{{items[item][1]}}</td>
+              <td>{{items[item][2]}}</td>
+            </tr>
+
+            {% endfor %}
+          </tbody>
+
+        </table>
+
+      </div>
       {% block content %}{% endblock %}
     </div>
     <footer>
