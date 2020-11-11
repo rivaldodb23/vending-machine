@@ -51,8 +51,16 @@ def remove_coins(c1, c2, c3, c4):
     for i in range(0,4):
         wallet[i] = wallet[i] - coin_set[i]
 
+"""
+- Returns the number of lines in a file
+- Function obtained from kite.com
+"""
 def file_num_lines(file):
-    return 0
+    line_count = 0
+    for line in file:
+        if line != '\n':
+            line_count += 1
+    return line_count
 
 """
 - Loads the item data and store it in global variable items
