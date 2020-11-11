@@ -1,7 +1,7 @@
 import unittest
 import machine
 
-filename_machine1 = 'testing/test-items.csv'
+filename_machine1 = 'app/testing/test-items.csv'
 
 
 class TestMachine(unittest.TestCase):
@@ -100,6 +100,11 @@ class TestMachine(unittest.TestCase):
         change = machine.denom_2 * 1 + machine.denom_1 * 1
         num_denom_1 = machine.get_num_denom_1_change(change)
         self.assertTrue(num_denom_1 == 1)
+    
+    def test_fiile_num_lines(self):
+        file = open(filename_machine1, "r")
+        num_lines = 10
+        self.assertTrue(num_lines == machine.file_num_lines(file))
 
 
 if __name__ == "__main__":

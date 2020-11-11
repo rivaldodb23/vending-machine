@@ -14,6 +14,9 @@ Currently the assumption is made that there are an inexhaustable amount of each 
 
 import csv
 
+#   Variable to help track progress
+progress = 0
+
 base_denom = 1
 denom_1 = base_denom
 denom_2 = 2
@@ -48,6 +51,8 @@ def remove_coins(c1, c2, c3, c4):
     for i in range(0,4):
         wallet[i] = wallet[i] - coin_set[i]
 
+def file_num_lines(file):
+    return 0
 
 """
 - Loads the item data and store it in global variable items
@@ -56,6 +61,7 @@ def remove_coins(c1, c2, c3, c4):
 def load_items(filename):
     with open(filename) as file:
         reader = csv.reader(file)
+        print("reader lines = ", )
         i = -1;
         for row in reader:
             if (i != -1):
