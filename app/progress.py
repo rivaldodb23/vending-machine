@@ -16,13 +16,17 @@ class App(threading.Thread):
     my_progress = None
     gui_set = False
 
+    """
+    -   Starts a App thread
+    """
     def __init__(self):
         threading.Thread.__init__(self)
         self.start()
 
-    def callback(self):
-        self.root.quit()
-
+    """
+    -   Sets the parameters for the tkinter root and progress bar
+    -   Starts the GUI as a seperate thread
+    """
     def run(self):
         self.root = Tk()
         self.root.title('Progress')
@@ -34,6 +38,9 @@ class App(threading.Thread):
         self.gui_set = True
         self.root.mainloop()
 
+    """
+    -   Updates the progress bar with the specified value 
+    """
     def update_bar(self, val):
         while (self.gui_set == False):
             time.sleep(0.1)
@@ -41,24 +48,33 @@ class App(threading.Thread):
         time.sleep(0.01)
         self.my_progress['value'] = val
 
+    """
+    -   Hides the progress bar / tkinter GUI 
+    """
     def hide(self):
         while self.gui_set == False:
             time.sleep(0.001)
         time.sleep(0.001)
         self.root.withdraw()
 
+    """
+    -  Shows the progress bar / tkinter GUI 
+    """
     def show(self):
         while self.gui_set == False:
             time.sleep(0.001)
         time.sleep(0.001)
         self.root.deiconify()
 
+    """
+    -   Stops and closes the root and, hence stops the thread 
+    """
     def stop(self):
         time.sleep(0.01)
         self.root.quit()
         return True
 
-
+# Main function user for manual testing of class
 if __name__ == '__main__':
     app = App()
     app.update_bar(10)
